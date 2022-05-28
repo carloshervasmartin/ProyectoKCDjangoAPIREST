@@ -1,5 +1,4 @@
 
-from datetime import datetime
 from rest_framework import serializers
 from entries.models import EntryModel
 
@@ -9,7 +8,7 @@ class EntrySerializer(serializers.Serializer):
     amount = serializers.FloatField()
     datetime = serializers.DateTimeField()
     
-    def create(self, validated_data):
+    def create(self, validated_data): #POST
         instance = EntryModel(
             datetime = validated_data.get('datetime'),
             concept = validated_data.get('concept'),
@@ -19,10 +18,10 @@ class EntrySerializer(serializers.Serializer):
         instance.save()
         return instance
         
-    def update(self, instance, validated_data):
-        instance.concept = validated_data.get('concept', instance.concept)
-        instance.amount = validated_data.get('amount', instance.amount)
-        instance.datetime = validated_data.get('datetime', instance.datetime)
+    def update(self, instance, validated_data): #PUT
+        instance.concept = validated_data.get('concept')
+        instance.amount = validated_data.get('amount')
+        instance.datetime = validated_data.get('datetime')
         
         instance.save()
         
